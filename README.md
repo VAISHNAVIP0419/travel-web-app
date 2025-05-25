@@ -61,4 +61,20 @@ travel-web-app/
 ├── package-lock.json
 ├── TravelWebAppDevops.pdf
 └── README.md
+````
 
+---
+
+1. ## ⚙️ Setup Instructions
+
+2. **Fork the repository** 
+- Go to the original repo: [sparknet-innovations/travel-web-app](https://github.com/VAISHNAVIP0419/travel-web-app.git)
+- Click **Fork** in the top-right to create your own copy.
+  
+
+
+4. **Create a new branch**
+
+```bash
+git checkout -b feature/update-readme
+```
