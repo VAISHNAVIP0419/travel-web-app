@@ -1,0 +1,30 @@
+# Terraform files
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.lock.hcl
+crash.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+terraform.tfvars
+terraform.tfvars.json
+
+# AWS credentials (never commit!)
+*.pem
+.aws/
+
+# IDE/editor specific
+.vscode/
+.idea/
+.DS_Store
+*.swp
+*.swo
+
+# Logs
+*.log
+nohup.out
+
+# Node modules (if frontend/backend contains package.json)
+node_modules/

@@ -1,41 +1,64 @@
-# 🌴 Luxe Escapes – Luxury Travel Web App
+# 🌍 Luxe Escapes – Luxury Travel React Web App Deployment Using DevOps Practices
 
-A beautifully designed static React web application showcasing popular luxury travel destinations. Built for learning and frontend practice.
+A visually engaging and performant luxury travel booking platform built with **React** and deployed using modern **DevOps** practices on AWS. This project demonstrates the implementation of a scalable and automated CI/CD pipeline using infrastructure-as-code, containerization, monitoring, and cloud deployment.
 
-## ✨ Features
+---
 
-- Modern, professional UI with golden luxury vibe
-- Responsive layout (cards show 3 per row on desktop, adjusts on mobile)
-- Highlighted destinations with images and descriptions
-- Contact section with working form UI and company details
+## 📖 Overview
 
-## 🚀 Getting Started
+**Luxe Escapes** is a static React-based luxury travel web app designed to showcase premium travel destinations and services. The application emphasizes elegance, speed, and reliability by leveraging AWS and DevOps tools for efficient deployment and operations.
 
-### Prerequisites
+This project includes:
 
-- [Node.js](https://nodejs.org/) (v14 or higher recommended)
-- npm (comes with Node)
+- A responsive React frontend hosted on AWS.
+- Dockerized static Node.js server for serving the build files.
+- CI/CD pipeline using GitHub Actions.
+- Infrastructure provisioning via Terraform.
+- Kubernetes-based deployment using EKS.
+- Full observability stack with Prometheus and Grafana.
 
-### Installation
+---
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/sparknet-innovations/travel-web-app.git
-   cd travel-web-app
-   ```
+## 🚀 Features
 
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
+- ✈️ Visually stunning frontend for luxury travel experiences
+- 🌐 Static hosting with optimized delivery
+- 🐳 Docker-based Node.js server
+- ⚙️ CI/CD with GitHub Actions
+- 📦 Infrastructure as Code using Terraform
+- ☸️ Container orchestration with Kubernetes (EKS)
+- 📈 Monitoring using Prometheus & Grafana
+- 🔐 Secure and scalable AWS cloud deployment
 
-3. **Start the development server**
-   ```bash
-   npm start
-   ```
+---
 
-4. **View the app in browser**
+## 🧰 Tech Stack
 
-   Open your browser and go to:  
-   [http://localhost:3000](http://localhost:3000)
+- **Frontend**: HTML5, CSS3, JavaScript, React
+- **Backend**: Node.js + Express (for static file serving)
+- **CI/CD**: GitHub Actions
+- **Containerization**: Docker
+- **Infrastructure**: Terraform
+- **Orchestration**: Kubernetes (AWS EKS)
+- **Monitoring**: Prometheus, Grafana
+- **Cloud**: AWS (S3, EC2, ECR, EKS, CloudWatch)
+
+---
+
+## 📁 Project Structure
+
+```bash
+travel-web-app/
+├── public/
+│   └── index.html
+├── src/
+│   ├── App.css
+│   ├── App.js
+│   ├── index.css
+│   ├── index.js
+│   └── style.css
+├── package.json
+├── package-lock.json
+├── TravelWebAppDevops.pdf
+└── README.md
 
