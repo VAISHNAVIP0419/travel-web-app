@@ -1,3 +1,4 @@
+# EC2 IAM Role
 resource "aws_iam_role" "ec2_role" {
   name = "luxe-ec2-role"
 
@@ -36,4 +37,41 @@ resource "aws_iam_role_policy" "ec2_logging_policy" {
 resource "aws_iam_instance_profile" "ec2_profile" {
   name = "luxe-ec2-profile"
   role = aws_iam_role.ec2_role.name
+}
+
+# ----------------------------------------
+# EKS Cluster IAM Role
+# ----------------------------------------
+
+resource "aws_iam_role" "eks_cluster_role" {
+  name = "luxe-eks-cluster-role"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [{
+      Effect = "Allow",
+      Principal = {
+        Service = "eks.amazonaws.com"
+      },
+      Action = "sts:AssumeRole"
+    }]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "eks_cluster_policy" {
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
+  role       = aws_iam_role.eks_cluster_role.name
+}
+
+# ----------------------------------------
+# Outputs for EKS
+# ----------------------------------------
+
+output "eks_cluster_role_arn" {
+  value = aws_iam_role.eks_cluster_role.arn
+}
+
+# Outputs for EC2 (optional for reusability)
+output "ec2_role_name" {
+  value = aws_iam_role.ec2_role.name
 }

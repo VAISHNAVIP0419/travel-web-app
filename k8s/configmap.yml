@@ -1,6 +1,6 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: luxe-config
+  name: luxe-env-config
 data:
-  api_url: "https://dummy-backend.luxe-escapes.in"  # Temporary placeholder
+  FLASK_ENV: "production"
