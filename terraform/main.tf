@@ -28,8 +28,10 @@ module "ec2" {
   iam_role           = module.iam.role_name
 }
 module "eks" {
-  source           = "./modules/eks"
-  cluster_name     = "luxe-eks-cluster"
-  subnet_ids       = [module.vpc.public_subnet_id, module.vpc.private_subnet_id]
-  cluster_role_arn = module.iam.eks_cluster_role_arn
+  source             = "./modules/eks"
+  cluster_name       = "luxe-eks-cluster"
+  subnet_ids         = [module.vpc.public_subnet_id, module.vpc.private_subnet_id]
+  public_subnet_ids  = [module.vpc.public_subnet_id]
+  cluster_role_arn   = module.iam.eks_cluster_role_arn
+  node_role_arn      = module.iam.node_role_arn
 }

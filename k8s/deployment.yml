@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: luxe-frontend
-          image: public.ecr.aws/your-public-repo/luxe-travel-app:latest
+          image: 047719648597.dkr.ecr.ap-south-1.amazonaws.com/travelwebapp:latest
           ports:
             - containerPort: 80
           env:
