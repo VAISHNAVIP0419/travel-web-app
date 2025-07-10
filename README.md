@@ -322,12 +322,171 @@ minikube service luxe-react-service
 ---
 
 
+# 🧪 **PHASE 2 – CI/CD & EKS Infrastructure**
+
+---
+
+## 🔐 **Setting up GitHub Secrets for CI/CD**
+
+**Steps:**
+
+1. Go to your GitHub repository.
+2. Navigate to:  
+   **Settings → Secrets and variables → Actions → New repository secret**
+3. Add the following secrets:
+
+- `DOCKER_USERNAME`  
+- `DOCKER_PASSWORD`  
+- `AWS_ACCESS_KEY_ID`  
+- `AWS_SECRET_ACCESS_KEY`  
+- `EKS_CLUSTER_NAME`  
+- `EKS_REGION`
+
+![image](https://github.com/user-attachments/assets/a305cfeb-8c34-4ab6-870c-841f62e3c993)
+
+
+![image](https://github.com/user-attachments/assets/50527d44-a62a-4295-aac9-5dda226d8f4f)
+
+---
+
+## 🤖 **Create a Self-Hosted Runner**
+
+1. Go to **Repo → Settings → Actions → Runners**
+2. Click **New self-hosted runner**
+3. Select OS (Ubuntu preferred)
+4. Run the setup commands on your EC2 instance:
+
+```bash
+# Example setup commands (from GitHub UI)
+./config.sh --url https://github.com/your-repo-url --token <TOKEN>
+./run.sh
+```
+![image](https://github.com/user-attachments/assets/8f2d0cb8-f8bd-4b83-8138-43005eccc7e7)
+
+![image](https://github.com/user-attachments/assets/f47b2760-5759-427e-a97a-1ea7ac346744)
+
+---
+
+## ⚙️ **GitHub Actions CI/CD Workflow**
+
+```yaml
+# .github/workflows/cicd-pipeline.yaml
+
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+      - feature
+
+jobs:
+  build-and-deploy:
+    runs-on: [self-hosted]
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Docker Login
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+
+      - name: Build Docker Image
+        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/luxe-escapes:latest .
+
+      - name: Push Docker Image
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/luxe-escapes:latest
+
+      - name: Checkout Kubernetes Manifests
+        uses: actions/checkout@v3
+        with:
+          repository: your-username/your-repo
+          path: ./k8s
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.EKS_REGION }}
+
+      - name: Update Kubeconfig
+        run: aws eks update-kubeconfig --name ${{ secrets.EKS_CLUSTER_NAME }} --region ${{ secrets.EKS_REGION }}
+
+      - name: Deploy to EKS
+        run: kubectl apply -f ./k8s/
+```
+![image](https://github.com/user-attachments/assets/ef8103d8-e5df-49a4-9cea-996f69dab098)
+
+---
+
+## 🧱 **Terraform Infrastructure Setup for EKS**
+
+### i) **Initialize Terraform**
+
+```bash
+cd terraform-eks
+terraform init
+```
+
+### ii) **View the Execution Plan**
+
+```bash
+terraform plan
+```
+
+### iii) **Apply the Configuration**
+
+```bash
+terraform apply
+```
 
 
 
+---
+
+## 🧪 **Validate Kubernetes Resources**
+
+```bash
+kubectl get pods
+kubectl get svc
+kubectl get deployment
+```
+![image](https://github.com/user-attachments/assets/3aca8cbd-0ca5-4f16-8ba8-45f3990f34eb)
+
+![image](https://github.com/user-attachments/assets/0b1c7d30-1bc7-453e-9738-bd08a4390ee1)
+
+---
+
+## 📊 **Prometheus + Grafana Setup (Manually)**
+
+### Step 1: Create Namespace
+
+```bash
+kubectl create namespace monitoring
+```
+
+### Step 2: Apply Prometheus Bundle
+
+```bash
+kubectl apply -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/main/bundle.yaml --namespace monitoring
+```
+
+### Step 3: Check Pods
+
+```bash
+kubectl get pods -n monitoring
+```
+
+![image](https://github.com/user-attachments/assets/61f8ebb2-5938-48c6-8347-eef648db5665)
+
+![image](https://github.com/user-attachments/assets/6732843e-cb84-4ee2-a4a6-49de266d7873)
+
+![image](https://github.com/user-attachments/assets/d3cfb444-0269-4105-8ad5-111e7dc8bb9d)
+
+![image](https://github.com/user-attachments/assets/29088626-677f-4c86-8327-9007c73794aa)
 
 
-
+## ✅ Project Completed
 
 
 
